@@ -51,7 +51,12 @@
       };
 
 
-      L.control.layers(baseLayers).addTo(map);
+      var chortitza = L.marker([47.843156, 35.166345]).bindPopup('Chortitza Colony'),
+    molotschna    = L.marker([47.209306, 35.583174]).bindPopup('Molotschna Colony');
+    
+    var coloniesLayers = L.layerGroup([chortitza, molotschna]);
+
+      L.control.layers(baseLayers, coloniesLayers).addTo(map);
 
     </script>
   </body>

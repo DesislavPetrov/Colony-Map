@@ -14,8 +14,8 @@
       }
 
       #map {
-        width: 98vw;
-        height: 98vh;
+        width: 95vw;
+        height: 95vh;
       }
 
     </style>
@@ -49,12 +49,15 @@
         "EsriWorldStreetMap": esriWorldStreetMap,
         "Wikimedia": wikimedia
       };
-
-
-      var chortitza = L.marker([47.843156, 35.166345]).bindPopup('Chortitza Colony'),
-    molotschna    = L.marker([47.209306, 35.583174]).bindPopup('Molotschna Colony');
+      
+      var colonies = L.layerGroup();
+		
+    var chortitza = L.marker([47.843156, 35.166345]).bindPopup('Chortitza Colony').addTo(colonies);
+    var molotschna    = L.marker([47.209306, 35.583174]).bindPopup('Molotschna Colony').addTo(colonies);
     
-    var coloniesLayers = L.layerGroup([chortitza, molotschna]);
+    var coloniesLayers = {
+        "Colonies": colonies
+      };
 
       L.control.layers(baseLayers, coloniesLayers).addTo(map);
 

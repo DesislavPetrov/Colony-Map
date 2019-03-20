@@ -12,12 +12,10 @@
         margin: 0;
         padding: 0;
       }
-
       #map {
         width: 95vw;
         height: 95vh;
       }
-
     </style>
     <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js" integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg==" crossorigin=""></script>
   </head>
@@ -25,13 +23,19 @@
   <body>
     <div id="map"></div>
     <script>
-    var colonies = L.layerGroup();
 		
-    var chortitza = L.marker([47.843156, 35.166345]).bindPopup('Chortitza Colony').addTo(colonies);
-    var molotschna    = L.marker([47.209306, 35.583174]).bindPopup('Molotschna Colony').addTo(colonies);
+    var coloniesOne = L.tileLayer('http://www.trailsofthepast.com/webmapping/Maptiler_2_German_500M/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: 'Colonies One'
+    }),
+    coloniesTwo = L.tileLayer('http://www.trailsofthepast.com/webmapping/Maptiler_1/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: 'Colonies Two'
+    });
     
-    var coloniesLayers = {
-        "Colonies": colonies
+    var overlayLayers = {
+        "ColoniesOne": coloniesOne,
+        "ColoniesTwo": coloniesTwo
       };
       
       var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -46,13 +50,11 @@
 	minZoom: 1,
 	maxZoom: 19
 });
-
       var map = L.map('map', {
         center: [47.534344, 35.373152],
         zoom: 10,
-        layers: [osm, colonies]
+        layers: [osm, coloniesOne]
       });
-
       var baseLayers = {
         "OSM": osm,
         "EsriWorldStreetMap": esriWorldStreetMap,
@@ -60,9 +62,7 @@
       };
       
       
-
-      L.control.layers(baseLayers, coloniesLayers).addTo(map);
-
+      L.control.layers(baseLayers, overlayLayers).addTo(map);
     </script>
   </body>
 
